@@ -37,7 +37,6 @@ export default () => {
 			</div>
 		);
 	};
-				//<GetTokenButton provider={authProviderFactory} />
 
 	return (
 		<AzureAD
