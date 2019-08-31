@@ -1,6 +1,6 @@
 import Header from '../components/header';
 import { Provider } from 'react-redux';
-import { basicReduxStore } from '../lib/redux_store';
+import { basicReduxStore } from '../lib/redux-store';
 
 const App = ({Component, pageProps}) => (
 	<main>
