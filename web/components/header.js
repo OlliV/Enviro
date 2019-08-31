@@ -18,6 +18,7 @@ export default () => (
 			h1 {
 				text-align: left;
 				margin-top: 0;
+				margin-bottom: 0;
 			}
 			.auth-div {
 				display: inline-block;
