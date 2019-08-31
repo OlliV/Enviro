@@ -1,6 +1,6 @@
 import { AzureAD } from 'react-aad-msal';
 import { authProviderFactory } from '../lib/auth-provider-factory';
-import { basicReduxStore } from '../lib/reduxStore';
+import { basicReduxStore } from '../lib/redux-store';
 
 export default () => {
 	const [accountInfo, setAccountInfo] = React.useState({});
