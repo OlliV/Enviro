@@ -1,20 +1,10 @@
-import Line from '../components/line'
+import dynamic from 'next/dynamic'
+
+const Dashboard = dynamic(
+	import('../components/dashboard'),
+	{ ssr: false }
+);
 
 export default () => (
-	<div>
-		<div className="container">
-			<Line />
-			<Line />
-		</div>
-		<style jsx>{`
-			.container {
-				height: 100vh;
-				width: 100vw;
-				display: grid;
-				text-align: center;
-				justify-content: center;
-				align-items: center;
-			}
-		`}</style>
-	</div>
-)
+	<Dashboard />
+);

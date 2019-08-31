@@ -8,7 +8,6 @@ const Auth = dynamic(
 	{ ssr: false }
 );
 
-
 const App = ({Component, pageProps}) => (
 	<main>
 	<Provider store={basicReduxStore}>
