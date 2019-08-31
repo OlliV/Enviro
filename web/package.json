@@ -2,18 +2,22 @@
   "name": "enviro-web",
   "version": "0.1.0",
   "description": "Enviro web interface",
+  "private": true,
   "main": "index.js",
   "scripts": {
     "build": "next build",
     "dev": "next",
     "now-build": "next build"
   },
-  "author": "",
+  "author": "Olli Vanhoja <olli.vanhoja@gmail.com>",
   "license": "MIT",
   "dependencies": {
-    "@nivo/line": "^0.59.3",
+    "@nivo/line": "0.59.3",
+    "isomorphic-unfetch": "3.0.0",
     "next": "9.0.5",
     "react": "16.9.0",
-    "react-dom": "16.9.0"
+    "react-aad-msal": "0.4.12",
+    "react-dom": "16.9.0",
+    "react-redux": "7.1.1"
   }
 }

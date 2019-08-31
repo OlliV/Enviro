@@ -1,5 +1,5 @@
-import { ResponsiveLine } from '@nivo/line'
-import data from '../data'
+import { ResponsiveLine } from '@nivo/line';
+import data from '../data';
 
 export default () => {
 	return (
