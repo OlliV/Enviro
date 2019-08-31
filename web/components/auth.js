@@ -29,7 +29,6 @@ export default () => {
 				<button onClick={logout} className="Button">
 					Logout
 				</button>
-				<br />
 				<style jsx>{`
 					button {
 						margin-left: 5pt;

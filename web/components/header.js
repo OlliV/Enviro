@@ -1,14 +1,31 @@
+import dynamic from 'next/dynamic'
+
+const Auth = dynamic(
+	import('./auth'),
+	{ ssr: false }
+);
+
 export default () => (
-	<header>
-		<h1>Enviro</h1>
-		<style jsx>{
-			`
+	<main>
+		<div className="app-name">
+			<h1>Enviro</h1>
+		</div>
+		<div className="auth-div">
+			<Auth />
+		</div>
+		<hr/>
+		<style jsx>{`
+			.app-name {
+				display: inline-block;
+			}
 			h1 {
 				text-align: left;
 				margin-top: 0;
 			}
-			`
-		}
-		</style>
-	</header>
+			.auth-div {
+				display: inline-block;
+				float: right;
+			}
+		`}</style>
+	</main>
 )
