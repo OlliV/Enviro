@@ -7,7 +7,8 @@
   "scripts": {
     "build": "next build",
     "dev": "next",
-    "now-build": "next build"
+    "now-build": "next build",
+    "prettier": "prettier --write --single-quote './{components,pages,lib}/**/*.js'"
   },
   "author": "Olli Vanhoja <olli.vanhoja@gmail.com>",
   "license": "MIT",
@@ -20,5 +21,8 @@
     "react-aad-msal": "0.4.12",
     "react-dom": "16.9.0",
     "react-redux": "7.1.1"
+  },
+  "devDependencies": {
+    "prettier": "1.18.2"
   }
 }

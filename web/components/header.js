@@ -1,9 +1,6 @@
-import dynamic from 'next/dynamic'
+import dynamic from 'next/dynamic';
 
-const Auth = dynamic(
-	import('./auth'),
-	{ ssr: false }
-);
+const Auth = dynamic(import('./auth'), { ssr: false });
 
 export default () => (
 	<main>
@@ -13,7 +10,7 @@ export default () => (
 		<div className="auth-div">
 			<Auth />
 		</div>
-		<hr/>
+		<hr />
 		<style jsx>{`
 			.app-name {
 				display: inline-block;
@@ -28,4 +25,4 @@ export default () => (
 			}
 		`}</style>
 	</main>
-)
+);

@@ -27,49 +27,49 @@ import { createStore } from 'redux';
 import { AuthenticationActions, AuthenticationState } from 'react-aad-msal';
 
 const initialState = {
-  initializing: false,
-  initialized: false,
-  accountInfo: null,
-  state: AuthenticationState.Unauthenticated,
+	initializing: false,
+	initialized: false,
+	accountInfo: null,
+	state: AuthenticationState.Unauthenticated
 };
 
 const rootReducer = (state = initialState, action) => {
-  switch (action.type) {
-    case AuthenticationActions.Initializing:
-      return {
-        ...state,
-        initializing: true,
-        initialized: false,
-      };
-    case AuthenticationActions.Initialized:
-      return {
-        ...state,
-        initializing: false,
-        initialized: true,
-      };
-    case AuthenticationActions.LoginSuccess:
-    case AuthenticationActions.AcquireTokenSuccess:
-      return {
-        ...state,
-        accountInfo: action.payload,
-      };
-    case AuthenticationActions.LoginError:
-    case AuthenticationActions.AcquireTokenError:
-    case AuthenticationActions.LogoutSuccess:
-      return { ...state, accountInfo: null };
-    case AuthenticationActions.AuthenticatedStateChanged:
-      return {
-        ...state,
-        state: action.payload,
-      };
-    default:
-      return state;
-  }
+	switch (action.type) {
+		case AuthenticationActions.Initializing:
+			return {
+				...state,
+				initializing: true,
+				initialized: false
+			};
+		case AuthenticationActions.Initialized:
+			return {
+				...state,
+				initializing: false,
+				initialized: true
+			};
+		case AuthenticationActions.LoginSuccess:
+		case AuthenticationActions.AcquireTokenSuccess:
+			return {
+				...state,
+				accountInfo: action.payload
+			};
+		case AuthenticationActions.LoginError:
+		case AuthenticationActions.AcquireTokenError:
+		case AuthenticationActions.LogoutSuccess:
+			return { ...state, accountInfo: null };
+		case AuthenticationActions.AuthenticatedStateChanged:
+			return {
+				...state,
+				state: action.payload
+			};
+		default:
+			return state;
+	}
 };
 
 export const basicReduxStore = createStore(
-  rootReducer,
-  // Enable the Redux DevTools extension if available
-  /// See more: https://chrome.google.com/webstore/detail/redux-devtools/lmhkpmbekcpmknklioeibfkpmmfiblj
-  //window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__(),
+	rootReducer
+	// Enable the Redux DevTools extension if available
+	/// See more: https://chrome.google.com/webstore/detail/redux-devtools/lmhkpmbekcpmknklioeibfkpmmfiblj
+	//window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__(),
 );

@@ -40,11 +40,11 @@ export default () => {
 
 	return (
 		<AzureAD
-		  provider={authProviderFactory}
-		  unauthenticatedFunction={unauthenticatedFunction}
-		  accountInfoCallback={userInfoReceived}
-		  authenticatedFunction={authenticatedFunction}
-		  reduxStore={basicReduxStore}
+			provider={authProviderFactory}
+			unauthenticatedFunction={unauthenticatedFunction}
+			accountInfoCallback={userInfoReceived}
+			authenticatedFunction={authenticatedFunction}
+			reduxStore={basicReduxStore}
 		/>
 	);
 };
