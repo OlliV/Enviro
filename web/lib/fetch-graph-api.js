@@ -1,14 +1,13 @@
 import fetch from 'isomorphic-unfetch';
 import retry from 'async-retry';
 import { parse as parseContentType } from 'content-type';
-import { authProviderFactory } from './auth-provider-factory';
+import getToken from './get-token';
 
 const NETWORK_ERR_CODE = 'network_error';
 const NETWORK_ERR_MESSAGE = 'A network error has occurred. Please retry';
 
 export default async function fetchAPI(path, opts = {}) {
-	const authProvider = authProviderFactory.getAuthProvider();
-	const { accessToken } = await authProvider.getToken();
+	const { accessToken } = await getToken();
 
 	const headers = Object.assign(
 		{
@@ -34,16 +33,6 @@ export default async function fetchAPI(path, opts = {}) {
 					);
 					if (type === 'application/json') {
 						data = await res.json();
-
-						// some APIs don't wrap their errors in `error`
-						// (like api-www-user
-						if (
-							opts.wrapErrorsLegacy &&
-							data.code &&
-							data.message
-						) {
-							data.error = data;
-						}
 
 						err = new Error(
 							data.error == null
