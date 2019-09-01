@@ -8,7 +8,7 @@ export default () => {
 	);
 
 	if (isAuthenticated) {
-		fetch('/me').then(console.log);
+		fetch('/me/drive/items/C55AB945326036C!2074/workbook/worksheets').then(console.log);
 	}
 
 	return (
