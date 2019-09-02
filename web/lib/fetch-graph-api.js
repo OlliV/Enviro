@@ -24,13 +24,9 @@ export default async function fetchAPI(path, opts = {}) {
 			try {
 				res = await fetch(url, { ...opts, headers });
 
-				if (
-					opts.throwOnHTTPError &&
-					(res.status < 200 || res.status >= 300)
-				) {
-					const { type } = parseContentType(
-						res.headers.get('Content-Type') || ''
-					);
+				const { type } = parseContentType(res.headers.get('Content-Type') || '');
+				if (opts.throwOnHTTPError &&
+					(res.status < 200 || res.status >= 300)) {
 					if (type === 'application/json') {
 						data = await res.json();
 
@@ -70,7 +66,11 @@ export default async function fetchAPI(path, opts = {}) {
 					// Since 204 means no content we return null
 					data = null;
 				} else {
-					data = await res.json();
+					if (type === 'application/json') {
+						data = await res.json();
+					} else {
+						data = await res.text();
+					}
 				}
 			} catch (e) {
 				err = e; //new Error(NETWORK_ERR_MESSAGE)
@@ -91,6 +91,6 @@ export default async function fetchAPI(path, opts = {}) {
 			}
 			throw err;
 		},
-		{ retries: 3, maxTimeout: 2500 }
+		{ retries: 3, maxTimeout: 20000 }
 	);
 }

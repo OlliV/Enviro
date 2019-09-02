@@ -20,7 +20,7 @@ function create() {
 			'openid',
 			'profile',
 			'user.read',
-			'files.read',
+			'files.readwrite.all',
 		]
 	};
 

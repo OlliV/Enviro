@@ -1,23 +1,36 @@
+import { useState } from 'react';
 import { useSelector } from 'react-redux';
-import fetch from '../lib/fetch-graph-api';
+import useInterval from '../lib/use-interval';
 import Line from './line';
+import getData from '../lib/get-data';
 
 export default () => {
 	const isAuthenticated = useSelector(
 		({ state }) => state === 'Authenticated'
 	);
+	const [data, setData] = useState([]);
 
-	if (isAuthenticated) {
-		fetch('/me/drive/items/C55AB945326036C!2074/workbook/worksheets').then(console.log);
-	}
+	getData().then(setData);
+	useInterval(async () => {
+		if (!isAuthenticated) {
+			return;
+		}
+
+		try {
+			const d = await getData();
+			setData(d);
+		} catch (err) {
+			console.error(err);
+		}
+	}, 300000);
+
 
 	return (
 		<div>
 			<div className="container">
 				{isAuthenticated ? (
 					<div>
-						<Line />
-						<Line />
+						<Line series={data}/>
 					</div>
 				) : (
 					<b>Please login</b>

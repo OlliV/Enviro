@@ -1,11 +1,10 @@
 import { ResponsiveLine } from '@nivo/line';
-import data from '../data';
 
-export default () => {
+export default ({series}) => {
 	return (
 		<div className="line">
 			<ResponsiveLine
-				data={data}
+				data={series}
 				margin={{ top: 50, right: 110, bottom: 50, left: 60 }}
 				xScale={{ type: 'point' }}
 				yScale={{
