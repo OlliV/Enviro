@@ -5,11 +5,13 @@ export default ({series}) => {
 		<div className="line">
 			<ResponsiveLine
 				data={series}
-				margin={{ top: 50, right: 110, bottom: 50, left: 60 }}
-				xScale={{ type: 'point' }}
+				margin={{ top: 50, right: 110, bottom: 110, left: 60 }}
+				xScale={{
+					type: 'point'
+				}}
 				yScale={{
 					type: 'linear',
-					stacked: true,
+					stacked: false,
 					min: 'auto',
 					max: 'auto'
 				}}
@@ -19,9 +21,9 @@ export default ({series}) => {
 					orient: 'bottom',
 					tickSize: 5,
 					tickPadding: 5,
-					tickRotation: 0,
+					tickRotation: -45,
 					legend: 'time',
-					legendOffset: 36,
+					legendOffset: 85,
 					legendPosition: 'middle'
 				}}
 				axisLeft={{
@@ -40,6 +42,7 @@ export default ({series}) => {
 				pointBorderColor={{ from: 'serieColor' }}
 				pointLabel="y"
 				pointLabelYOffset={-12}
+				crosshairType="cross"
 				useMesh={true}
 				legends={[
 					{

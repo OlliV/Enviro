@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import ms from 'ms';
 import { useSelector } from 'react-redux';
 import useInterval from '../lib/use-interval';
 import Line from './line';
@@ -10,7 +11,6 @@ export default () => {
 	);
 	const [data, setData] = useState([]);
 
-	getData().then(setData);
 	useInterval(async () => {
 		if (!isAuthenticated) {
 			return;
@@ -22,7 +22,7 @@ export default () => {
 		} catch (err) {
 			console.error(err);
 		}
-	}, 300000);
+	}, ms('30s'));
 
 
 	return (

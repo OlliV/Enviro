@@ -1,5 +1,6 @@
+import moment from 'moment';
 import { listFiles } from './one-drive';
-import { refreshPivotTables, getPivotTableRange } from './excel';
+import { getLabels, getLastN } from './excel';
 
 const ENVIRO_PATH = '/Enviro';
 
@@ -33,9 +34,10 @@ async function findworkbook() {
 
 export default async function getSeries() {
 	const workbookId = await findworkbook();
+	const worksheetName = 'Measurements';
 
-	const range = await getPivotTableRange(workbookId, 'Pivot', 'PivotTable', "address='A1:B5'");
-	const labels = range.shift();
+	const range = await getLastN(workbookId, worksheetName, 15);
+	const labels = await getLabels(workbookId, worksheetName);
 	labels[0] = 'time';
 	range.shift(); // remove the blank row
 
@@ -53,7 +55,7 @@ export default async function getSeries() {
 	for (const row of range) {
 		for (let i = 1; i < row.length; i++) {
 			series[i - 1].data.push({
-				x: row[0],
+				x: moment(row[0] * 1000).format('YYYY-MM-DD HH:mm'),
 				y: row[i]
 			});
 		}

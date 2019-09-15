@@ -30,6 +30,7 @@ export default async function fetchAPI(path, opts = {}) {
 					if (type === 'application/json') {
 						data = await res.json();
 
+						console.log(data);
 						err = new Error(
 							data.error == null
 								? `Unexpected Error (${opts.method} ${url})`
