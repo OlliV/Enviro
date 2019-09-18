@@ -16,7 +16,6 @@ export default () => {
 
 	const userInfoReceived = receivedAccountInfo => {
 		console.log('USER INFO RECEIVED');
-		console.log(receivedAccountInfo);
 
 		setAccountInfo(receivedAccountInfo);
 	};
