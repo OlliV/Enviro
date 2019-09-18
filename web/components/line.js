@@ -1,6 +1,6 @@
 import { ResponsiveLine } from '@nivo/line';
 
-export default ({series}) => {
+export default ({series, name}) => {
 	return (
 		<div className="line">
 			<ResponsiveLine
@@ -44,7 +44,7 @@ export default ({series}) => {
 				pointLabelYOffset={-12}
 				crosshairType="cross"
 				useMesh={true}
-				legends={[
+				legends={series.length > 0 ? [
 					{
 						anchor: 'bottom-right',
 						direction: 'column',
@@ -69,15 +69,14 @@ export default ({series}) => {
 							}
 						]
 					}
-				]}
+				] : null}
 			/>
 			<style jsx>
 				{`
 					.line {
-						height: 50vh;
-						width: 60vw;
+						height: 40vh;
+						width: 40vw;
 						background: white;
-						box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
 						transition: 0.3s;
 					}
 

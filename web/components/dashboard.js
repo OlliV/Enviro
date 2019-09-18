@@ -28,13 +28,9 @@ export default () => {
 	return (
 		<div>
 			<div className="container">
-				{isAuthenticated ? (
-					<div>
-						<Line series={data}/>
-					</div>
-				) : (
-					<b>Please login</b>
-				)}
+				{isAuthenticated
+					?  data.map((v, i) => (<Line key={i} series={[v]} name={v.id}/>))
+					: (<b>Please login</b>)}
 			</div>
 			<style jsx>{`
 				.container {
