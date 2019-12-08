@@ -29,17 +29,16 @@ export default () => {
 		<div>
 			<div className="container">
 				{isAuthenticated
-					?  data.map((v, i) => (<Line key={i} series={[v]} name={v.id}/>))
+					?  data.map((v, i) => (<Line key={i} series={[v]} title={v.id}/>))
 					: (<b>Please login</b>)}
 			</div>
 			<style jsx>{`
 				.container {
 					height: 100vh;
 					width: 100vw;
-					display: grid;
-					text-align: center;
-					justify-content: center;
-					align-items: center;
+					display: flex;
+					margin-left: 5pt;
+					margin-right: 5pt;
 				}
 			`}</style>
 		</div>

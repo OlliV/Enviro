@@ -5,21 +5,15 @@ import { basicReduxStore } from '../lib/redux-store';
 const App = ({Component, pageProps}) => (
 	<main>
 	<Provider store={basicReduxStore}>
-		<div>
-			<Header />
-			<Component {...pageProps} />
-		</div>
+		<Header />
+		<Component {...pageProps} />
 	</Provider>
-    <style jsx>{`
-        div {
-            margin: 0 auto;
-            margin-left: 5pt;
-        }
-    `}</style>
     <style jsx global>{`
         body {
             display: inline;
             text-align: left;
+			background-color: #121212;
+			color: #e1e1e1;
         }
     `}</style>
 	</main>

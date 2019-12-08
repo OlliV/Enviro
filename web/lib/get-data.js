@@ -55,7 +55,7 @@ export default async function getSeries() {
 	for (const row of range) {
 		for (let i = 1; i < row.length; i++) {
 			series[i - 1].data.push({
-				x: moment(row[0] * 1000).format('YYYY-MM-DD HH:mm'),
+				x: moment(row[0] * 1000).format('MM-DD HH:mm'),
 				y: row[i]
 			});
 		}
