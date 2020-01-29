@@ -1,0 +1,9 @@
+{
+  "name": "enviro-collector",
+  "private": true,
+  "main": "index.js",
+  "dependencies": {
+    "adal-node": "0.2.1",
+    "micri": "2.0.1"
+  }
+}
