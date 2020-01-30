@@ -257,7 +257,7 @@ lodash@^4.17.14:
   resolved "https://registry.yarnpkg.com/lodash/-/lodash-4.17.15.tgz#b447f6670a0455bbfeedd11392eff330ea097548"
   integrity sha512-8xOcRHvCjnocdS5cpwXQXVzmmh5e5+saE2QGoeQmbKmRS6J3VQppPOIt0MnmE+4xlZoumy0GPG0D0MVIQbNA1A==
 
-micri@^2.0.1:
+micri@2.0.1:
   version "2.0.1"
   resolved "https://registry.yarnpkg.com/micri/-/micri-2.0.1.tgz#46ec0e2a7a2a287f37aa19dbaf4e3f34db17ece2"
   integrity sha512-GKkJiN2ewbrjCW1VZ5SL7scncwUZUccit1uZEysZ7XM9Hy6JmckTelf31esWMut33rzkxIygodJXizF2nYynew==
