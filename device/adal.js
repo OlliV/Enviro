@@ -28,15 +28,25 @@ function readConfig() {
 
 const config = readConfig();
 const authorityUrl = `${config.authorityHostUrl}/${config.tenant}`;
-const resource = config.clientId;
 
 turnOnLogging();
 
-const context = new AuthenticationContext(authorityUrl);
+const tokenCache = new adal.MemoryCache();
+const context = new AuthenticationContext(authorityUrl, true, tokenCache);
 
-module.exports = async function acquireToken() {
+module.exports = async function acquireToken(resource) {
+	const userCodeInfo = await new Promise((resolve, reject) => context.acquireUserCode(resource, config.clientId, 'en-us', (err, res) => {
+		if (err) {
+			reject(err);
+		} else {
+			resolve(res);
+		}
+	}));
+
+	console.log('Use a web browser to open the page ' + userCodeInfo.verificationUrl + ' and enter the code ' + userCodeInfo.userCode + ' to sign in.');
+
 	return new Promise((resolve, reject) => {
-		context.acquireTokenWithClientCredentials(resource, config.clientId, config.clientSecret, (err, tokenResponse) => {
+		context.acquireTokenWithDeviceCode(resource, config.clientId, userCodeInfo,  (err, tokenResponse) => {
 			if (err) {
 				reject(err);
 			} else {
@@ -44,4 +54,4 @@ module.exports = async function acquireToken() {
 			}
 		});
 	});
-}
+};

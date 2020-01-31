@@ -2,6 +2,25 @@
 # yarn lockfile v1
 
 
+"@olliv/fetch@6.2.0":
+  version "6.2.0"
+  resolved "https://registry.yarnpkg.com/@olliv/fetch/-/fetch-6.2.0.tgz#10cc9fb6297802c808194d1bb73625df71e02650"
+  integrity sha512-h5rCBmahq7gebouZF4yKgll9ws/k7IESyBUpLxWc9bTxLgdL7hxtSCxjkRHYpgp2nfVeUs+nHjpZT3HsqvbYXQ==
+  dependencies:
+    "@types/node-fetch" "2"
+
+"@types/node-fetch@2":
+  version "2.5.4"
+  resolved "https://registry.yarnpkg.com/@types/node-fetch/-/node-fetch-2.5.4.tgz#5245b6d8841fc3a6208b82291119bc11c4e0ce44"
+  integrity sha512-Oz6id++2qAOFuOlE1j0ouk1dzl3mmI1+qINPNBhi9nt/gVOz0G+13Ao6qjhdF0Ys+eOkhu6JnFmt38bR3H0POQ==
+  dependencies:
+    "@types/node" "*"
+
+"@types/node@*":
+  version "13.5.3"
+  resolved "https://registry.yarnpkg.com/@types/node/-/node-13.5.3.tgz#37f1f539b7535b9fb4ef77d59db1847a837b7f17"
+  integrity sha512-ZPnWX9PW992w6DUsz3JIXHaSb5v7qmKCVzC3km6SxcDGxk7zmLfYaCJTbktIa5NeywJkkZDhGldKqDIvC5DRrA==
+
 "@types/node@^8.0.47":
   version "8.10.59"
   resolved "https://registry.yarnpkg.com/@types/node/-/node-8.10.59.tgz#9e34261f30183f9777017a13d185dfac6b899e04"
