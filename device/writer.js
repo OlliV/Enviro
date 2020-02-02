@@ -1,7 +1,40 @@
-const { findWorkbook, addRows } = require('./excel');
+const { fs: fsPromises } = require('fs');
+const { readFileSync } = require('fs');
+const ms = require('ms');
 const splitArray = require('split-array');
+const { findWorkbook, addRows } = require('./excel');
 
+const BACKUP_FILE = 'writer.bak.json';
+const BACKUP_INTERVAL = ms('5m');
 const queue = [];
+
+let writingToDisk = false;
+
+try {
+	const data = readFileSync(BACKUP_FILE, 'utf8');
+
+	queue.push(...JSON.parse(data));
+} catch (err) {
+	console.error('Failed to read the backup data:', err);
+}
+
+async function syncToDisk(arr) {
+	if (writingToDisk) {
+		throw new Error('Previous sync incomplete');
+	}
+	writingToDisk = true;
+
+	try {
+		await fs.writeFile(BACKUP_FILE, JSON.stringify(arr), {
+			encoding: 'utf8',
+			flag: 'w'
+		});
+	} catch (err) {
+		throw err;
+	} finally {
+		writingToDisk = false;
+	}
+}
 
 function calcAvgs(arr, bucketSize) {
 	const buckets = splitArray(arr, bucketSize);
@@ -42,9 +75,17 @@ module.exports = function createWriter(path, filename, sampleSize, syncInterval)
 		console.log(`Processed ${len} samples`);
 	};
 
+	// Periodic write to SPO
 	setInterval(() => {
 		writeout().catch((err) => console.error(`Writer error:`, err));
 	}, syncInterval);
+
+	// Periodic backup to disk
+	setInterval(() => {
+		syncToDisk(arr)
+			.then(() => console.log('syncToDisk complete'))
+			.catch((err) => console.error('Writer error: ', err));
+	}, BACKUP_INTERVAL);
 
 	return function write(row) {
 		queue.push(row);
