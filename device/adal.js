@@ -43,11 +43,24 @@ function createContext() {
 const context = createContext();
 const acquireUserCode = promisify(context.acquireUserCode).bind(context);
 const acquireTokenWithDeviceCode = promisify(context.acquireTokenWithDeviceCode).bind(context);
+const acquireToken = promisify(context.acquireToken).bind(context);
+let userId;
 
-module.exports = async function acquireToken(resource) {
+module.exports = async function acquireAuthToken(resource) {
+	if (userId) {
+		const token = await acquireToken(resource, userId, config.clientId);
+
+		console.log('Auth token renew ok');
+
+		return token;
+	}
+
 	const userCodeInfo = await acquireUserCode(resource, config.clientId, 'en-us');
 
 	console.log('Use a web browser to open the page ' + userCodeInfo.verificationUrl + ' and enter the code ' + userCodeInfo.userCode + ' to sign in.');
 
-	return acquireTokenWithDeviceCode(resource, config.clientId, userCodeInfo);
+	const r = await acquireTokenWithDeviceCode(resource, config.clientId, userCodeInfo);
+	userId = r.userId;
+
+	return r;
 };
