@@ -48,11 +48,18 @@ let userId;
 
 module.exports = async function acquireAuthToken(resource) {
 	if (userId) {
-		const token = await acquireToken(resource, userId, config.clientId);
+		try {
+			const token = await acquireToken(resource, userId, config.clientId);
 
-		console.log('Auth token renew ok');
+			console.log('Auth token renew ok');
 
-		return token;
+			return token;
+		} catch (err) {
+			console.log('Auth token renew failed');
+			userId = null;
+
+			throw err;
+		}
 	}
 
 	const userCodeInfo = await acquireUserCode(resource, config.clientId, 'en-us');
