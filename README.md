@@ -3,6 +3,9 @@ Enviro
 
 A software stack for air quality measurements.
 
+![Photo](/photo.png)
+![Screenshot](/screenshot.png)
+
 BOM
 ---
 
