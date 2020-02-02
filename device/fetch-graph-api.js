@@ -1,4 +1,5 @@
 const fetch = require('@olliv/fetch').default();
+const { parse: parseContentType } = require('content-type');
 const getToken = require('./adal');
 
 const RESOURCE = 'https://graph.microsoft.com';
@@ -25,11 +26,14 @@ module.exports = async function fetchAPI(path, opts = {}) {
 	};
 
 	const res = await fetch(url, { ...opts, headers });
+	const { type } = parseContentType(res.headers.get('Content-Type') || '');
+
 	if (res.status < 200 || res.status >= 300) {
 		const err = new Error(`Fetch failed (${res.status})`);
 
+		err.method = opts.method || 'GET';
 		err.path = path;
-		err.body = await res.text();
+		err.responseBody = await res.text();
 
 		throw err;
 	} else if (res.status === 204) {

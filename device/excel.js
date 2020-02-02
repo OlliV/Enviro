@@ -1,28 +1,33 @@
+const LRU = require('lru-cache');
+const ms = require('ms');
+const promiseCache = require('./promise-cache');
 const { listFiles } = require('./one-drive');
+const fetch = require('./fetch-graph-api');
 
-let workbookIdPromise = null;
+findWorkbook = promiseCache(new LRU({
+	max: 1000,
+	maxAge: ms('120m')
+}), async (path, name) => {
+	const files = await listFiles(path);
 
-exports.findWorkbook = async function findWorkbook(path, name) {
-	if (!workbookIdPromise) {
-		const fn = async () => {
-			const files = await listFiles(path);
-
-			for (const file of files) {
-				if (file.name === name) {
-					return file.id;
-				}
-			}
-
-			throw new Error('File not found');
-		};
-
-		const p = fn();
-		workbookIdPromise = p;
-		p.catch((error) => {
-			console.error(error);
-			workbookIdPromise = null;
-		});
+	for (const file of files) {
+		if (file.name === name) {
+			return file.id;
+		}
 	}
 
-	return workbookIdPromise;
-};
+	throw new Error('File not found');
+});
+exports.findWorkbook = findWorkbook;
+
+exports.addRows = async function addRows(workbookId, table, values) {
+	const encodedTable = encodeURIComponent(table);
+
+	await fetch(`/me/drive/items/${workbookId}/workbook/tables/${encodedTable}/rows/add`, {
+		method: 'POST',
+		body: {
+			index: null,
+			values
+		}
+	});
+}

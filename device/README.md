@@ -14,3 +14,9 @@ tar xf node-v12.14.1-linux-armv6l.tar.gz
 echo 'export PATH=$PATH:/home/pi/node-v12.14.1-linux-armv6l/bin' >> ~/.bashrc
 sudo reboot
 ```
+
+Copy the data collector to the RPi:
+
+```bash
+rsync -r --exclude node_modules ./ pi@192.168.43.30:./device
+```

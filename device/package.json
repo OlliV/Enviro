@@ -5,6 +5,11 @@
   "dependencies": {
     "@olliv/fetch": "6.2.0",
     "adal-node": "0.2.1",
-    "micri": "2.0.1"
+    "content-type": "1.0.4",
+    "lru-cache": "5.1.1",
+    "micri": "2.0.1",
+    "ms": "2.1.2",
+    "node-fetch": "2.6.0",
+    "split-array": "1.0.1"
   }
 }

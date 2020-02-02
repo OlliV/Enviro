@@ -107,6 +107,6 @@ while True:
     try:
         values = read_values()
         resp = send_to_parent(values, id)
-	time.sleep(1.0)
+	time.sleep(10.0)
     except Exception as e:
         print(e)
