@@ -37,6 +37,7 @@ export default () => {
 					height: 100vh;
 					width: 100vw;
 					display: flex;
+					flex-wrap: wrap;
 					margin-left: 5pt;
 					margin-right: 5pt;
 				}
