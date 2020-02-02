@@ -1,5 +1,4 @@
-const { fs: fsPromises } = require('fs');
-const { readFileSync } = require('fs');
+const { readFileSync, promises: fsPromises } = require('fs');
 const ms = require('ms');
 const splitArray = require('split-array');
 const { findWorkbook, addRows } = require('./excel');
@@ -25,7 +24,7 @@ async function syncToDisk(arr) {
 	writingToDisk = true;
 
 	try {
-		await fs.writeFile(BACKUP_FILE, JSON.stringify(arr), {
+		await fsPromises.writeFile(BACKUP_FILE, JSON.stringify(arr), {
 			encoding: 'utf8',
 			flag: 'w'
 		});
