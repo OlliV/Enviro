@@ -5,7 +5,7 @@ const splitArray = require('split-array');
 const { findWorkbook, addRows } = require('./excel');
 
 const BACKUP_FILE = 'writer.bak.json';
-const BACKUP_INTERVAL = ms('5m');
+const BACKUP_INTERVAL = ms('10m');
 const queue = [];
 
 let writingToDisk = false;
@@ -82,7 +82,7 @@ module.exports = function createWriter(path, filename, sampleSize, syncInterval)
 
 	// Periodic backup to disk
 	setInterval(() => {
-		syncToDisk(arr)
+		syncToDisk([...queue])
 			.then(() => console.log('syncToDisk complete'))
 			.catch((err) => console.error('Writer error: ', err));
 	}, BACKUP_INTERVAL);
