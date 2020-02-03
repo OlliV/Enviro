@@ -16,7 +16,7 @@ module.exports = async function fetchAPI(path, opts = {}) {
 		tokenTimeout = setTimeout(() => {
 			tokenTimeout = null;
 			tokenPromise = null;
-		}, Math.floor(expiresIn * 0.8 * 1000));
+		}, Math.floor(expiresIn * 1000));
 	}
 
 	const url = `https://graph.microsoft.com/v1.0${path}`;
