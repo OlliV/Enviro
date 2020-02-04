@@ -34,7 +34,7 @@ export default ({series, title}) => {
 					tickPadding: 5,
 					tickRotation: 0,
 					legend: 'value',
-					legendOffset: -40,
+					legendOffset: -55,
 					legendPosition: 'middle'
 				}}
 				colors={{ scheme: 'nivo' }}

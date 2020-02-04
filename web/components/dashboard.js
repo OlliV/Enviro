@@ -54,7 +54,7 @@ export default () => {
 			</div>
 			<style jsx>{`
 				.container {
-					height: 100vh;
+					height: 90vh;
 					width: 100vw;
 					display: flex;
 					flex-wrap: wrap;
