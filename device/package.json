@@ -4,6 +4,7 @@
   "main": "index.js",
   "dependencies": {
     "@olliv/fetch": "6.2.0",
+    "@olliv/timeseries": "1.0.1",
     "adal-node": "0.2.1",
     "content-type": "1.0.4",
     "lru-cache": "5.1.1",

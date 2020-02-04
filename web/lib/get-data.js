@@ -1,4 +1,5 @@
 import moment from 'moment';
+const { downsample } = require('@olliv/timeseries');
 import { listFiles } from './one-drive';
 import { getLabels, getLastN } from './excel';
 
@@ -32,11 +33,16 @@ async function findworkbook() {
 	return workbookIdPromise;
 }
 
-export default async function getSeries() {
+export default async function getSeries(nrSamples, nrPoints) {
 	const workbookId = await findworkbook();
 	const worksheetName = 'Measurements';
 
-	const range = await getLastN(workbookId, worksheetName, 15);
+	const origRange = await getLastN(workbookId, worksheetName, nrSamples);
+	const range = downsample(origRange, Math.floor(origRange.length / nrPoints))
+		.map((arr) => {
+			const [ts, ...points] = arr;
+			return [ts, ...points.map((v) => Math.round(v * 1000) / 1000)];
+		});
 	const labels = await getLabels(workbookId, worksheetName);
 	labels[0] = 'time';
 	range.shift(); // remove the blank row

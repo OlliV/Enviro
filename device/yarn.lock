@@ -9,6 +9,13 @@
   dependencies:
     "@types/node-fetch" "2"
 
+"@olliv/timeseries@1.0.1":
+  version "1.0.1"
+  resolved "https://registry.yarnpkg.com/@olliv/timeseries/-/timeseries-1.0.1.tgz#6354efdd0d4b6d0307a986ab45c1ff049827e64b"
+  integrity sha512-hHlzjH1nvldoqgvmiK3KQ1YNWVnAeJ8ZcVekbNrjyOM9oeyB9EZqG3TuGChB5K97/1I2NK318WtyJsQxn2m8qQ==
+  dependencies:
+    split-array "1.0.1"
+
 "@types/node-fetch@2":
   version "2.5.4"
   resolved "https://registry.yarnpkg.com/@types/node-fetch/-/node-fetch-2.5.4.tgz#5245b6d8841fc3a6208b82291119bc11c4e0ce44"

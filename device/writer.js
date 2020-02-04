@@ -1,6 +1,6 @@
 const { readFileSync, promises: fsPromises } = require('fs');
+const { downsample } = require('@olliv/timeseries');
 const ms = require('ms');
-const splitArray = require('split-array');
 const { findWorkbook, addRows } = require('./excel');
 
 const BACKUP_FILE = 'writer.bak.json';
@@ -35,27 +35,6 @@ async function syncToDisk(arr) {
 	}
 }
 
-function calcAvgs(arr, bucketSize) {
-	const buckets = splitArray(arr, bucketSize);
-
-	// Calculate geometric mean of the timestamps
-	const timestamps = buckets.map((samples) => {
-		const prod = samples.reduce((acc, values) => acc * values[0], 1);
-		return Math.floor(Math.pow(prod, 1 / samples.length));
-	});
-
-	const res = buckets.map((samples) => samples.reduce((avgs, values, _, { length }) => {
-		return avgs.map((avg, i) => avg + values[i] / length);
-	}, Array(arr[0].length).fill(0)));
-
-	// Replace the timestamps with proper geometric means
-	for (let i = 0; i < res.length; i++) {
-		res[i][0] = timestamps[i];
-	}
-
-	return res;
-}
-
 module.exports = function createWriter(path, filename, sampleSize, syncInterval) {
 	async function writeout() {
 		const workbookId = await findWorkbook(path, filename);
@@ -65,7 +44,7 @@ module.exports = function createWriter(path, filename, sampleSize, syncInterval)
 			return;
 		}
 
-		await addRows(workbookId, 'Table1', calcAvgs(rawData, sampleSize));
+		await addRows(workbookId, 'Table1', downsample(rawData, sampleSize));
 
 		// Splice only if the previous op was successful.
 		// This makes us retry forever or until OOM.
