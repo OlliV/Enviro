@@ -38,7 +38,9 @@ export default async function getSeries(nrSamples, nrPoints) {
 	const worksheetName = 'Measurements';
 
 	const origRange = await getLastN(workbookId, worksheetName, nrSamples);
-	const range = downsample(origRange, Math.floor(origRange.length / nrPoints))
+	const decimateFactor = Math.round(origRange.length / Math.min(60, origRange.length));
+	const decimated = origRange.filter((_v, i) => !(i % decimateFactor));
+	const range = downsample(decimated, Math.floor(decimated.length / nrPoints))
 		.map((arr) => {
 			const [ts, ...points] = arr;
 			return [ts, ...points.map((v) => Math.round(v * 1000) / 1000)];
