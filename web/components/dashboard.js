@@ -39,7 +39,9 @@ export default () => {
 		} catch (err) {
 			console.error(err);
 		} finally {
-			updatingData = false;
+			setTimeout(() => {
+				updatingData = false;
+			}, ms('1s'));
 		}
 	}
 
