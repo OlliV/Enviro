@@ -1205,10 +1205,10 @@
     d3-scale "^3.0.0"
     recompose "^0.30.0"
 
-"@olliv/timeseries@1.0.1":
-  version "1.0.1"
-  resolved "https://registry.yarnpkg.com/@olliv/timeseries/-/timeseries-1.0.1.tgz#6354efdd0d4b6d0307a986ab45c1ff049827e64b"
-  integrity sha512-hHlzjH1nvldoqgvmiK3KQ1YNWVnAeJ8ZcVekbNrjyOM9oeyB9EZqG3TuGChB5K97/1I2NK318WtyJsQxn2m8qQ==
+"@olliv/timeseries@1.0.2":
+  version "1.0.2"
+  resolved "https://registry.yarnpkg.com/@olliv/timeseries/-/timeseries-1.0.2.tgz#dd5028bf5dffcba2430fcca696ee4e7831a77fd8"
+  integrity sha512-Mnfwwal5b4N4QPicB3mjC2Kan6ddDJ/W7IeQrTTk+NldSqm7oAzgbiBE87oYuYsY90csZXi+JK5//+UVHOneMQ==
   dependencies:
     split-array "1.0.1"
 
