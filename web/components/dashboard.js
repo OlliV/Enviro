@@ -6,52 +6,43 @@ import useInterval from '../lib/use-interval';
 import Line from './line';
 import getData from '../lib/get-data';
 
+const points = 15;
 const timeWindowOptions = [
-	{ value: 60, label: 'Hour' },
-	{ value: 1440, label: 'Day' },
-	{ value: 1080, label: 'Week' },
-	{ value: 40320, label: 'Month' }
+	{ i: 0, value: 60, label: 'Hour' },
+	{ i: 1, value: 1440, label: 'Day' },
+	{ i: 2, value: 1080, label: 'Week' },
+	{ i: 3, value: 40320, label: 'Month' }
 ];
 
+
 export default () => {
-	let updatingData = false;
 	const isAuthenticated = useSelector(
 		({ state }) => state === 'Authenticated'
 	);
-	const [data, setData] = useState([]);
+	const [data, setData] = useState([[], [], [], []]);
 	const [timeWindow, setTimeWindow] = useState(timeWindowOptions[0]);
 
-	const updateGraphs = async (twin) => {
-		if (!isAuthenticated) {
-			updatingData = false;
-			return;
-		}
+	const handleChange = (selectedOption) => {
+		setTimeWindow(selectedOption);
+	}
 
-		if (updatingData) {
+	useInterval(async () => {
+		if (!isAuthenticated) {
 			return;
 		}
 
 		try {
-			updatingData = true;
-
-			const d = await getData(twin, 15);
+			const d = await Promise.all([
+				getData(timeWindowOptions[0].value, points),
+				getData(timeWindowOptions[1].value, points),
+				getData(timeWindowOptions[2].value, points),
+				getData(timeWindowOptions[3].value, points)
+			]);
 			setData(d);
 		} catch (err) {
 			console.error(err);
-		} finally {
-			setTimeout(() => {
-				updatingData = false;
-			}, ms('1s'));
 		}
-	}
-
-	const handleChange = (selectedOption) => {
-		setTimeWindow(selectedOption);
-		updateGraphs(selectedOption.value);
-	}
-
-	setTimeout(async () => updateGraphs(timeWindow.value), 0);
-	useInterval(async () => updateGraphs(timeWindow.value), ms('30s'));
+	}, ms('30s'));
 
 	return (
 		<div>
@@ -62,7 +53,7 @@ export default () => {
 			/>
 			<div className="container">
 				{isAuthenticated
-					?  data.map((v, i) => (<Line key={i} series={[v]} title={v.id}/>))
+					?  data[timeWindow.i].map((v, i) => (<Line key={i} series={[v]} title={v.id}/>))
 					: (<b>Please login</b>)}
 			</div>
 			<style jsx>{`
