@@ -12,7 +12,9 @@ const timeWindowOptions = [
 	{ value: 1080, label: 'Week' },
 	{ value: 40320, label: 'Month' }
 ];
+
 export default () => {
+	let updatingData = false;
 	const isAuthenticated = useSelector(
 		({ state }) => state === 'Authenticated'
 	);
@@ -21,14 +23,23 @@ export default () => {
 
 	const updateGraphs = async (twin) => {
 		if (!isAuthenticated) {
+			updatingData = false;
+			return;
+		}
+
+		if (updatingData) {
 			return;
 		}
 
 		try {
+			updatingData = true;
+
 			const d = await getData(twin, 15);
 			setData(d);
 		} catch (err) {
 			console.error(err);
+		} finally {
+			updatingData = false;
 		}
 	}
 
