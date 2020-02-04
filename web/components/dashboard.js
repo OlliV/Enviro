@@ -10,7 +10,7 @@ const points = 15;
 const timeWindowOptions = [
 	{ i: 0, value: 60, label: 'Hour' },
 	{ i: 1, value: 1440, label: 'Day' },
-	{ i: 2, value: 1080, label: 'Week' },
+	{ i: 2, value: 10080, label: 'Week' },
 	{ i: 3, value: 40320, label: 'Month' }
 ];
 
