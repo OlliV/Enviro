@@ -1374,12 +1374,10 @@
     d3-scale "^3.0.0"
     recompose "^0.30.0"
 
-"@olliv/timeseries@1.0.2":
-  version "1.0.2"
-  resolved "https://registry.yarnpkg.com/@olliv/timeseries/-/timeseries-1.0.2.tgz#dd5028bf5dffcba2430fcca696ee4e7831a77fd8"
-  integrity sha512-Mnfwwal5b4N4QPicB3mjC2Kan6ddDJ/W7IeQrTTk+NldSqm7oAzgbiBE87oYuYsY90csZXi+JK5//+UVHOneMQ==
-  dependencies:
-    split-array "1.0.1"
+"@olliv/timeseries@1.1.0":
+  version "1.1.0"
+  resolved "https://registry.yarnpkg.com/@olliv/timeseries/-/timeseries-1.1.0.tgz#9484dc32232217b4bbf43f914d9679341591b92d"
+  integrity sha512-cpIqNWDPwfVr6oisiJHrNMFuxi6d0gtSZMpH96d1twR6sV7Mdrun+CKT8b9ErqprljD9lPTG+dhT4COtZC29cg==
 
 "@types/parse-json@^4.0.0":
   version "4.0.0"
@@ -6432,11 +6430,6 @@ spdx-license-ids@^3.0.0:
   version "3.0.5"
   resolved "https://registry.yarnpkg.com/spdx-license-ids/-/spdx-license-ids-3.0.5.tgz#3694b5804567a458d3c8045842a6358632f62654"
   integrity sha512-J+FWzZoynJEXGphVIS+XEh3kFSjZX/1i9gFBaWQcB+/tmpe2qUsSBABpcxqxnAxFdiUFEgAX1bjYGQvIZmoz9Q==
-
-split-array@1.0.1:
-  version "1.0.1"
-  resolved "https://registry.yarnpkg.com/split-array/-/split-array-1.0.1.tgz#7d0c10366705f3aa4620529ab755bf7ed2220da1"
-  integrity sha1-fQwQNmcF86pGIFKat1W/ftIiDaE=
 
 split-string@^3.0.1, split-string@^3.0.2:
   version "3.1.0"

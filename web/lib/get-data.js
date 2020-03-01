@@ -1,5 +1,5 @@
 import moment from 'moment';
-const { downsample } = require('@olliv/timeseries');
+const { decimate, downsample } = require('@olliv/timeseries');
 import { listFiles } from './one-drive';
 import { getLabels, getLastN } from './excel';
 
@@ -39,8 +39,8 @@ export default async function getSeries(nrSamples, nrPoints) {
 
 	const origRange = await getLastN(workbookId, worksheetName, nrSamples);
 	const decimateFactor = Math.round(origRange.length / Math.min(60, origRange.length));
-	const decimated = origRange.filter((_v, i) => !(i % decimateFactor));
-	const range = downsample(decimated, Math.floor(decimated.length / nrPoints))
+	const decimated = decimate(origRange, decimateFactor);
+	const range = downsample(decimate(origRange, decimated), Math.floor(decimated.length / nrPoints))
 		.map((arr) => {
 			const [ts, ...points] = arr;
 			return [ts, ...points.map((v) => Math.round(v * 1000) / 1000)];

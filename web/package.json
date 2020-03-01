@@ -14,7 +14,7 @@
   "license": "MIT",
   "dependencies": {
     "@nivo/line": "0.61.1",
-    "@olliv/timeseries": "1.0.2",
+    "@olliv/timeseries": "1.1.0",
     "async-retry": "1.2.3",
     "content-type": "1.0.4",
     "isomorphic-unfetch": "3.0.0",
