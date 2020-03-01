@@ -4,7 +4,7 @@ import ms from 'ms';
 import { useSelector } from 'react-redux';
 import useInterval from '../lib/use-interval';
 import Line from './line';
-import getData from '../lib/get-data';
+import getSeries from '../lib/get-series';
 
 const points = 15;
 const timeWindowOptions = [
@@ -14,35 +14,32 @@ const timeWindowOptions = [
 	{ i: 3, value: 40320, label: 'Month' }
 ];
 
-
 export default () => {
 	const isAuthenticated = useSelector(
 		({ state }) => state === 'Authenticated'
 	);
-	const [data, setData] = useState([[], [], [], []]);
+	const dataStates = timeWindowOptions.map(() => useState([]));
 	const [timeWindow, setTimeWindow] = useState(timeWindowOptions[0]);
+
+	timeWindowOptions.map(({i, value: nrSamples}) => {
+		useInterval(async () => {
+			if (!isAuthenticated) {
+				return;
+			}
+
+			try {
+				const data = await getSeries(nrSamples, points);
+				const setWin = dataStates[i][1];
+				setWin(data);
+			} catch (err) {
+				console.error(err);
+			}
+		}, ms('30s'));
+	});
 
 	const handleChange = (selectedOption) => {
 		setTimeWindow(selectedOption);
 	}
-
-	useInterval(async () => {
-		if (!isAuthenticated) {
-			return;
-		}
-
-		try {
-			const d = await Promise.all([
-				getData(timeWindowOptions[0].value, points),
-				getData(timeWindowOptions[1].value, points),
-				getData(timeWindowOptions[2].value, points),
-				getData(timeWindowOptions[3].value, points)
-			]);
-			setData(d);
-		} catch (err) {
-			console.error(err);
-		}
-	}, ms('30s'));
 
 	return (
 		<div>
@@ -53,7 +50,7 @@ export default () => {
 			/>
 			<div className="container">
 				{isAuthenticated
-					?  data[timeWindow.i].map((v, i) => (<Line key={i} series={[v]} title={v.id}/>))
+					?  dataStates[timeWindow.i][0].map((v, i) => (<Line key={i} series={[v]} title={v.id}/>))
 					: (<b>Please login</b>)}
 			</div>
 			<style jsx>{`

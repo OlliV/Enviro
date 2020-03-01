@@ -40,25 +40,20 @@ export default async function getSeries(nrSamples, nrPoints) {
 	const origRange = await getLastN(workbookId, worksheetName, nrSamples);
 	const decimateFactor = Math.round(origRange.length / Math.min(60, origRange.length));
 	const decimated = decimate(origRange, decimateFactor);
-	const range = downsample(decimate(origRange, decimated), Math.floor(decimated.length / nrPoints))
+	const range = downsample(decimated, Math.floor(decimated.length / nrPoints))
 		.map((arr) => {
 			const [ts, ...points] = arr;
 			return [ts, ...points.map((v) => Math.round(v * 1000) / 1000)];
 		});
 	const labels = await getLabels(workbookId, worksheetName);
-	labels[0] = 'time';
+	labels.shift();
 	range.shift(); // remove the blank row
 
-	const series = [];
-	for (let i = 1; i < labels.length; i++) {
-		const label = labels[i];
-
-		series.push({
-			id: label,
-			color: `hsl(${i * 10}, 70%, 50%)`,
-			data: []
-		});
-	}
+	const series = labels.map((label, i) => ({
+		id: label,
+		color: `hsl(${i * 10}, 70%, 50%)`,
+		data: []
+	}));
 
 	for (const row of range) {
 		for (let i = 1; i < row.length; i++) {
