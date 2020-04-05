@@ -5,9 +5,8 @@
   "private": true,
   "main": "index.js",
   "scripts": {
-    "build": "next build",
-    "dev": "next",
-    "now-build": "next build",
+    "build": "rm -rf .next out && NEXT_TELEMETRY_DISABLED=1 next build && NEXT_TELEMETRY_DISABLED=1 next export",
+    "dev": "NEXT_TELEMETRY_DISABLED=1 next",
     "prettier": "prettier --write --single-quote './{components,pages,lib}/**/*.js'"
   },
   "author": "Olli Vanhoja <olli.vanhoja@gmail.com>",
