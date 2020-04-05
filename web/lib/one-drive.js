@@ -12,7 +12,9 @@ function getType(file) {
 
 export async function listFiles(path) {
 	const encodedPath = encodeURIComponent(path);
-	const res = await fetch(`/me/drive/root:${encodedPath}:/children`);
+	const res = await fetch(
+		`/me/drive/special/approot${path ? `:${encodedPath}:` : ''}/children`
+	);
 
 	if (!res.value) {
 		throw new Error('`value` missing');

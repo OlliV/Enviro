@@ -5,7 +5,7 @@ const ms = require('ms');
 const fetch = require('./fetch-graph-api');
 const createWriter = require('./writer');
 
-const ENVIRO_PATH = '/Enviro';
+const ENVIRO_PATH = '/home';
 const FILENAME = 'enviro-data.xlsx';
 const INTERVAL = ms('5m');
 const SAMPLE_SIZE = 6;

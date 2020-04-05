@@ -3,7 +3,7 @@ const { decimate, downsample } = require('@olliv/timeseries');
 import { listFiles } from './one-drive';
 import { getLabels, getLastN } from './excel';
 
-const ENVIRO_PATH = '/Enviro';
+const ENVIRO_PATH = '/home';
 
 let workbookIdPromise = null;
 

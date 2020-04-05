@@ -1,7 +1,5 @@
 const fetch = require('./fetch-graph-api');
 
-const special = false;
-
 function getType(file) {
 	if (file.file) {
 		return file.file.mimeType;
@@ -14,8 +12,7 @@ function getType(file) {
 
 exports.listFiles = async function listFiles(path) {
 	const encodedPath = encodeURIComponent(path);
-	const root = special ? 'special/approot' : 'root';
-	const res = await fetch(`/me/drive/${root}${path ? `:${encodedPath}:` : ''}/children`);
+	const res = await fetch(`/me/drive/special/approot${path ? `:${encodedPath}:` : ''}/children`);
 
 	if (!res.value) {
 		throw new Error('`value` missing');
