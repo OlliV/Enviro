@@ -14,10 +14,10 @@ async function getToken() {
 		const authProvider = authProviderFactory.getAuthProvider();
 
 		p = authProvider.getToken();
-		p.catch(() => p = null);
+		p.catch(() => (p = null));
 	}
 
 	return p;
-};
+}
 
 export default getToken;

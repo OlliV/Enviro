@@ -5,7 +5,7 @@ import { basicReduxStore } from '../lib/redux-store';
 export default () => {
 	const [accountInfo, setAccountInfo] = React.useState({});
 
-	const unauthenticatedFunction = loginFunction => {
+	const unauthenticatedFunction = (loginFunction) => {
 		console.log('UNAUTHENTICATED');
 		return (
 			<button className="Button" onClick={loginFunction}>
@@ -14,13 +14,13 @@ export default () => {
 		);
 	};
 
-	const userInfoReceived = receivedAccountInfo => {
+	const userInfoReceived = (receivedAccountInfo) => {
 		console.log('USER INFO RECEIVED');
 
 		setAccountInfo(receivedAccountInfo);
 	};
 
-	const authenticatedFunction = logout => {
+	const authenticatedFunction = (logout) => {
 		console.log('AUTHENTICATED');
 		return (
 			<div>

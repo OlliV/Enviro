@@ -38,13 +38,17 @@ export default async function getSeries(nrSamples, nrPoints) {
 	const worksheetName = 'Measurements';
 
 	const origRange = await getLastN(workbookId, worksheetName, nrSamples);
-	const decimateFactor = Math.round(origRange.length / Math.min(60, origRange.length));
+	const decimateFactor = Math.round(
+		origRange.length / Math.min(60, origRange.length)
+	);
 	const decimated = decimate(origRange, decimateFactor);
-	const range = downsample(decimated, Math.floor(decimated.length / nrPoints))
-		.map((arr) => {
-			const [ts, ...points] = arr;
-			return [ts, ...points.map((v) => Math.round(v * 1000) / 1000)];
-		});
+	const range = downsample(
+		decimated,
+		Math.floor(decimated.length / nrPoints)
+	).map((arr) => {
+		const [ts, ...points] = arr;
+		return [ts, ...points.map((v) => Math.round(v * 1000) / 1000)];
+	});
 	const labels = await getLabels(workbookId, worksheetName);
 	labels.shift();
 	range.shift(); // remove the blank row
@@ -52,14 +56,14 @@ export default async function getSeries(nrSamples, nrPoints) {
 	const series = labels.map((label, i) => ({
 		id: label,
 		color: `hsl(${i * 10}, 70%, 50%)`,
-		data: []
+		data: [],
 	}));
 
 	for (const row of range) {
 		for (let i = 1; i < row.length; i++) {
 			series[i - 1].data.push({
 				x: moment(row[0] * 1000).format('MM-DD HH:mm'),
-				y: row[i]
+				y: row[i],
 			});
 		}
 	}

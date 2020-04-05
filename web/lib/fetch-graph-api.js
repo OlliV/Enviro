@@ -11,22 +11,26 @@ export default async function fetchAPI(path, opts = {}) {
 
 	const headers = Object.assign(
 		{
-			Authorization: `Bearer ${accessToken}`
+			Authorization: `Bearer ${accessToken}`,
 		},
 		opts.headers || {}
 	);
 	const url = `https://graph.microsoft.com/v1.0${path}`;
 
 	return retry(
-		async bail => {
+		async (bail) => {
 			let res, data, err;
 
 			try {
 				res = await fetch(url, { ...opts, headers });
 
-				const { type } = parseContentType(res.headers.get('Content-Type') || '');
-				if (opts.throwOnHTTPError &&
-					(res.status < 200 || res.status >= 300)) {
+				const { type } = parseContentType(
+					res.headers.get('Content-Type') || ''
+				);
+				if (
+					opts.throwOnHTTPError &&
+					(res.status < 200 || res.status >= 300)
+				) {
 					if (type === 'application/json') {
 						data = await res.json();
 

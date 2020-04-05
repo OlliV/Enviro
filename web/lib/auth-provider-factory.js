@@ -7,21 +7,16 @@ function create() {
 			clientId: '2b180bc0-b503-4388-849d-75709b5387a2',
 			validateAuthority: true,
 			postLogoutRedirectUri: window.location.origin,
-			redirectUri: window.location.origin
+			redirectUri: window.location.origin,
 		},
 		cache: {
 			cacheLocation: 'sessionStorage',
-			storeAuthStateInCookie: true
-		}
+			storeAuthStateInCookie: true,
+		},
 	};
 
 	const authenticationParameters = {
-		scopes: [
-			'openid',
-			'profile',
-			'user.read',
-			'files.readwrite.all',
-		]
+		scopes: ['openid', 'profile', 'user.read', 'files.readwrite.all'],
 	};
 
 	return new MsalAuthProviderFactory(

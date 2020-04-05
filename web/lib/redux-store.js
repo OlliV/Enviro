@@ -30,7 +30,7 @@ const initialState = {
 	initializing: false,
 	initialized: false,
 	accountInfo: null,
-	state: AuthenticationState.Unauthenticated
+	state: AuthenticationState.Unauthenticated,
 };
 
 const rootReducer = (state = initialState, action) => {
@@ -39,19 +39,19 @@ const rootReducer = (state = initialState, action) => {
 			return {
 				...state,
 				initializing: true,
-				initialized: false
+				initialized: false,
 			};
 		case AuthenticationActions.Initialized:
 			return {
 				...state,
 				initializing: false,
-				initialized: true
+				initialized: true,
 			};
 		case AuthenticationActions.LoginSuccess:
 		case AuthenticationActions.AcquireTokenSuccess:
 			return {
 				...state,
-				accountInfo: action.payload
+				accountInfo: action.payload,
 			};
 		case AuthenticationActions.LoginError:
 		case AuthenticationActions.AcquireTokenError:
@@ -60,7 +60,7 @@ const rootReducer = (state = initialState, action) => {
 		case AuthenticationActions.AuthenticatedStateChanged:
 			return {
 				...state,
-				state: action.payload
+				state: action.payload,
 			};
 		default:
 			return state;

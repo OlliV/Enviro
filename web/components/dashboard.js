@@ -11,7 +11,7 @@ const timeWindowOptions = [
 	{ i: 0, value: 60, label: 'Hour' },
 	{ i: 1, value: 1440, label: 'Day' },
 	{ i: 2, value: 10080, label: 'Week' },
-	{ i: 3, value: 40320, label: 'Month' }
+	{ i: 3, value: 40320, label: 'Month' },
 ];
 
 export default () => {
@@ -21,7 +21,7 @@ export default () => {
 	const dataStates = timeWindowOptions.map(() => useState([]));
 	const [timeWindow, setTimeWindow] = useState(timeWindowOptions[0]);
 
-	timeWindowOptions.map(({i, value: nrSamples}) => {
+	timeWindowOptions.map(({ i, value: nrSamples }) => {
 		useInterval(async () => {
 			if (!isAuthenticated) {
 				return;
@@ -39,7 +39,7 @@ export default () => {
 
 	const handleChange = (selectedOption) => {
 		setTimeWindow(selectedOption);
-	}
+	};
 
 	return (
 		<div>
@@ -49,9 +49,13 @@ export default () => {
 				options={timeWindowOptions}
 			/>
 			<div className="container">
-				{isAuthenticated
-					?  dataStates[timeWindow.i][0].map((v, i) => (<Line key={i} series={[v]} title={v.id}/>))
-					: (<b>Please login</b>)}
+				{isAuthenticated ? (
+					dataStates[timeWindow.i][0].map((v, i) => (
+						<Line key={i} series={[v]} title={v.id} />
+					))
+				) : (
+					<b>Please login</b>
+				)}
 			</div>
 			<style jsx>{`
 				.container {
