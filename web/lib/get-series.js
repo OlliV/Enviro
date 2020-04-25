@@ -1,9 +1,9 @@
 import moment from 'moment';
 const { decimate, downsample } = require('@olliv/timeseries');
-import { listFiles } from './one-drive';
+import { getFile } from './one-drive';
 import { getLabels, getLastN } from './excel';
 
-const ENVIRO_PATH = '/home';
+const ENVIRO_FILE = '/home/enviro-data.xlsx';
 
 let workbookIdPromise = null;
 
@@ -11,15 +11,17 @@ let workbookIdPromise = null;
 async function findworkbook() {
 	if (!workbookIdPromise) {
 		const fn = async () => {
-			const files = await listFiles(ENVIRO_PATH);
+			const fileItem = await getFile(ENVIRO_FILE);
 
-			for (const file of files) {
-				if (file.name === 'enviro-data.xlsx') {
-					return file.id;
-				}
+			if (!fileItem || fileItem.error) {
+				throw new Error('File not found');
 			}
 
-			throw new Error('File not found');
+			if (!fileItem.file || fileItem.file.mimeType !== "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet") {
+				throw new Error('Invalid file type');
+			}
+
+			return fileItem.id;
 		};
 
 		const p = fn();

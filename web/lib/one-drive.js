@@ -26,3 +26,10 @@ export async function listFiles(path) {
 		type: getType(file),
 	}));
 }
+
+export async function getFile(path) {
+	const encodedPath = encodeURIComponent(path);
+	const res = await fetch(`/me/drive/special/approot:${encodedPath}`);
+
+	return res;
+}
