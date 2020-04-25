@@ -49,7 +49,7 @@ export default ({ series, title }) => {
 					pointBorderColor={{ from: 'serieColor' }}
 					pointLabel="y"
 					pointLabelYOffset={-12}
-					crosshairType="cross"
+					layers={['grid', 'markers', 'axes', 'areas', 'lines', 'points', 'slices', 'mesh', 'legends']}
 					useMesh={true}
 					theme={{
 						textColor: '#e1e1e1',
