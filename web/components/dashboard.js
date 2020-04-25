@@ -1,10 +1,10 @@
 import { useState } from 'react';
 import Select from 'react-select';
 import ms from 'ms';
-import { useSelector } from 'react-redux';
-import useInterval from '../lib/use-interval';
 import Line from './line';
 import getSeries from '../lib/get-series';
+import isAuthenticated from '../lib/is-authenticated';
+import useInterval from '../lib/use-interval';
 
 const points = 15;
 const timeWindowOptions = [
@@ -15,15 +15,13 @@ const timeWindowOptions = [
 ];
 
 export default () => {
-	const isAuthenticated = useSelector(
-		({ state }) => state === 'Authenticated'
-	);
+	const authenticated = isAuthenticated();
 	const dataStates = timeWindowOptions.map(() => useState([]));
 	const [timeWindow, setTimeWindow] = useState(timeWindowOptions[0]);
 
 	timeWindowOptions.map(({ i, value: nrSamples }) => {
 		useInterval(async () => {
-			if (!isAuthenticated) {
+			if (!authenticated) {
 				return;
 			}
 
@@ -49,7 +47,7 @@ export default () => {
 				options={timeWindowOptions}
 			/>
 			<div className="container">
-				{isAuthenticated ? (
+				{authenticated ? (
 					dataStates[timeWindow.i][0].map((v, i) => (
 						<Line key={i} series={[v]} title={v.id} />
 					))

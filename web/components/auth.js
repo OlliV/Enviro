@@ -40,6 +40,7 @@ export default () => {
 	return (
 		<AzureAD
 			provider={authProviderFactory}
+			forceLogin={true}
 			unauthenticatedFunction={unauthenticatedFunction}
 			accountInfoCallback={userInfoReceived}
 			authenticatedFunction={authenticatedFunction}
