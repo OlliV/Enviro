@@ -17,7 +17,7 @@
     "async-retry": "1.2.3",
     "content-type": "1.0.4",
     "isomorphic-unfetch": "3.0.0",
-    "moment": "2.24.0",
+    "moment": "2.29.4",
     "ms": "2.1.2",
     "next": "9.3.5",
     "prop-types": "15.7.2",
